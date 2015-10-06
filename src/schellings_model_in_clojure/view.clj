@@ -26,7 +26,6 @@
 (def window-size 800)
 
 
-
 (def reset-button
   (sc/button :text "Reset"))
 (def start-stop-button
