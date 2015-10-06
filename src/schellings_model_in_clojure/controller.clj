@@ -5,5 +5,5 @@
             [seesaw.table :as st]
             [seesaw.tree :as stree]))
 
-(def setup-listeners []
+(defn setup-listeners []
   )
