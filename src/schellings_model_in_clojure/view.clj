@@ -19,7 +19,38 @@
 (defn repaint! []
   (sc/repaint! world-canvas))
 
+(defn neighborhood [[x y]]
+  (for [dx [-1 0 1]
+        dy [-1 0 1]
+        :let [new-x (+ x dx)
+              new-y (+ y dy)]
+        :when (and (not= [new-x new-y] [x y])
+                   (>= new-x 0)
+                   (< new-x number-of-individuals-on-a-side)
+                   (>= new-y 0)
+                   (< new-y number-of-individuals-on-a-side))]
+    [(+ x dx) (+ y dx)]))
+
+(defn neighbors [position board-map]
+  (map board-map (neighborhood position)))
+
+(defn make-board-map [number-of-individuals-on-a-side]
+  (into {}
+        (for [x (range number-of-individuals-on-a-side)
+              y (range number-of-individuals-on-a-side)]
+          [[x y] (model/make-position)])))
+
+(defn make-board [number-of-individuals-on-a-side]
+  (let [board-map (make-board-map number-of-individuals-on-a-side)]
+    (doseq [coordinates (keys board-map)
+            neighbor-coord (neighbors coordinates board-maps)
+            :let [position (board-map coordinates)
+                  neighbor (board-map neighbor-coord)]]
+      (add-watch position :neighbor-changed
+                 (partial model/handle-neighbor-change neighbor)))))
+
 (defn init-view []
+  (make-board number-of-individuals-on-a-side)
   (sc/config! world-canvas :paint paint-world))
 
 (def reset-button
