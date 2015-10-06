@@ -6,7 +6,7 @@
   (:gen-class))
 
 (defn show-gui []
-  (sc/show! view/main-window)
+  (sc/show! (sc/pack! view/main-window))
   (view/init-view)
   (view/repaint)
   (controller/setup-listeners))
