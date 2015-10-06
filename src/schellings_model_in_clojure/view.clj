@@ -1,5 +1,6 @@
 (ns schellings-model-in-clojure.view
-  (:require [seesaw.core :as sc]
+  (:require [schellings-model-in-clojure.model :as model]
+            [seesaw.core :as sc]
             [seesaw.graphics :as sg]
             [seesaw.color :as scolor]
             [seesaw.table :as st]
@@ -35,10 +36,6 @@
   (sc/vertical-panel
    :items [reset-button start-stop-button]))
 
-(def similarity-atom (atom 0))
-(def balance-atom (atom 0))
-(def empty-atom (atom 0))
-
 (defn make-slider [slider-label initial-value slider-atom]
   (let [title-label (sc/label :text (str slider-label ": "))
         value-label (sc/label :text initial-value)
@@ -55,9 +52,9 @@
 (def sliders
   (sc/vertical-panel
    :items (map (partial apply make-slider)
-               [["Similarity tolerance" 30 similarity-atom]
-                ["Relative proportions" 50 balance-atom]
-                ["Proportion empty" 10 empty-atom]])))
+               [["Similarity tolerance" 30 model/similarity-atom]
+                ["Relative proportions" 50 model/balance-atom]
+                ["Proportion empty" 10 model/empty-atom]])))
 
 (def controls
   (sc/horizontal-panel
