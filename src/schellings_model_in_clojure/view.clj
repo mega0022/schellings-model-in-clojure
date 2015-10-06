@@ -7,25 +7,20 @@
             [seesaw.tree :as stree]
             [seesaw.bind :as sb]))
 
-;; A forward reference.
-(def main-window)
+(def number-of-individuals-on-a-side 30)
+(def individual-rectangle-size 10)
 
-(def world-canvas (sc/canvas :id :worldcanvas
-                             :background :white
-                             :preferred-size [300 :by 300]))
-
-(defn paint-world [context graphics]
-  )
+(def world-canvas
+  (let [side-size-in-pixels (* number-of-individuals-on-a-side individual-rectangle-size)]
+    (sc/canvas :id :worldcanvas
+               :background :white
+               :preferred-size [side-size-in-pixels :by side-size-in-pixels])))
 
 (defn repaint! []
   (sc/repaint! world-canvas))
 
 (defn init-view []
   (sc/config! world-canvas :paint paint-world))
-
-(def title "Schelling's model of segregation")
-(def window-size 800)
-
 
 (def reset-button
   (sc/button :text "Reset"))
@@ -64,6 +59,9 @@
   (sc/border-panel
    :center world-canvas
    :south controls))
+
+(def title "Schelling's model of segregation")
+(def window-size 800)
 
 (def main-window
   (sc/frame :title title
