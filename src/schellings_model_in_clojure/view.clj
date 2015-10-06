@@ -3,7 +3,8 @@
             [seesaw.graphics :as sg]
             [seesaw.color :as scolor]
             [seesaw.table :as st]
-            [seesaw.tree :as stree]))
+            [seesaw.tree :as stree]
+            [seesaw.bind :as sb]))
 
 ;; A forward reference.
 (def main-window)
@@ -35,27 +36,29 @@
   (sc/vertical-panel
    :items [reset-button start-stop-button]))
 
-(def similarity-slider
-  (sc/slider :orientation :horizontal
-             :value 0.3
-             :min 0
-             :max 1))
+(def similarity-atom (atom 0))
+(def balance-atom (atom 0))
+(def empty-atom (atom 0))
 
-(def balance-slider
-  (sc/slider :orientation :horizontal
-             :value 0.5
-             :min 0
-             :max 1))
-
-(def proportion-empty-slider
-  (sc/slider :orientation :horizontal
-             :value 0.1
-             :min 0
-             :max 1))
+(defn make-slider [slider-label initial-value slider-atom]
+  (let [title-label (sc/label :text (str slider-label ": "))
+        value-label (sc/label :text initial-value)
+        slider (sc/slider :orientation :horizontal
+                          :value initial-value
+                          :min 0
+                          :max 100)]
+    (sb/bind slider (sb/transform / 100.0) slider-atom)
+    (sb/bind slider-atom (sb/transform #(Math/round (* 100.0 %))) value-label)
+    (sc/vertical-panel
+     :items [(sc/horizontal-panel :items [title-label value-label])
+             slider])))
 
 (def sliders
   (sc/vertical-panel
-   :items [similarity-slider balance-slider proportion-empty-slider]))
+   :items (map (partial apply make-slider)
+               [["Similarity tolerance" 30 similarity-atom]
+                ["Relative proportions" 50 balance-atom]
+                ["Proportion empty" 10 empty-atom]])))
 
 (def controls
   (sc/horizontal-panel
