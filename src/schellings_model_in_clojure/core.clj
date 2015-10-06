@@ -8,8 +8,9 @@
 (defn show-gui []
   (sc/show! (sc/pack! view/main-window))
   (view/init-view)
-  (view/repaint)
-  (controller/setup-listeners))
+  (view/repaint!)
+  (controller/setup-listeners)
+  )
 
 (defn -main
   "Start up the simulation of Schelling's model"
