@@ -9,7 +9,8 @@
 (def main-window)
 
 (def world-canvas (sc/canvas :id :worldcanvas
-                             :background :white))
+                             :background :white
+                             :preferred-size [300 :by 300]))
 
 (defn paint-world [context graphics]
   )
