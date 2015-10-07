@@ -1,6 +1,6 @@
 # schellings-model-in-clojure
 
-A simple starter for an implementation of Schelling's model of segregation in Clojure. See, e.g., (this description)[http://nifty.stanford.edu/2014/mccown-schelling-model-segregation/] and (JavaScript) implementation for more details on the model.
+A simple starter for an implementation of Schelling's model of segregation in Clojure. See, e.g., [this description](http://nifty.stanford.edu/2014/mccown-schelling-model-segregation/) and (JavaScript) implementation for more details on the model.
 
 The goal is to complete the implementation using Clojure's concurrency tools to implement each "person" in the model so they act asynchronously.
 
