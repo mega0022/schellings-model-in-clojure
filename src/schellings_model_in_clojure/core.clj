@@ -20,11 +20,13 @@
   ;; included this to "force" some sort of change in the
   ;; system so I could confirm that all my watching and
   ;; binding was wired up correctly.
-  (let [f (first (deref model/positions))
-        fi @f
-        s (second (deref model/positions))
-        si @s]
-    (Thread/sleep 1000)
-    (swap! f (fn [_] si))
-    (swap! s (fn [_] fi)))
-  )
+  ;;(let [f (first (deref model/positions))
+ ;;       fi @f
+ ;;       s (second (deref model/positions))
+ ;;       si @s]
+ ;;   (Thread/sleep 1000)
+ ;;   (swap! f (fn [_] si))
+ ;;   (swap! s (fn [_] fi))
+ ;;   )
+
+)

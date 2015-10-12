@@ -153,3 +153,24 @@
               :width (:width window-size)
               :height (:height window-size)
               :content (make-window-content tile-array))))
+
+(defn move-random [individual]
+  ;; Take in an individual and swap it with a random position
+  (let [first-individual individual
+        fi @first-individual
+        second-individual (rand-nth @model/positions)
+        si @second-individual]
+    (Thread/sleep 500)
+    (swap! first-individual (fn [_] si))
+    (swap! second-individual (fn [_] fi))
+  )
+)
+
+(defn check-happiness [individual board-map]
+  ;; Take an individual and check how satisfied it is with its neighbors
+  (let [[blue-count red-count] (count-color (neighbors @individual board-map))]
+    [/ blue-count red-count]))
+
+(defn count-color [neighborhood board-map]
+  ;; Count the blue and red members of a neighborhood
+  (for [individual neighborhood]

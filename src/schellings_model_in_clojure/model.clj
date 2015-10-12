@@ -29,7 +29,7 @@
   ; probably where you want to call send to handle whatever
   ; needs to be done. Otherwise everything will end up happening in
   ; the main thread.
-  (println (str "I am " me " and my neighbor " neighbor " (key " key ") changed from " old-state " to " new-state)))
+  (println (str "I am " me " and my neighbor " neighbor " (key " key ") changed from " @old-state " to " @new-state)))
 
 ;; You may be able to leave this alone, but feel free to change it
 ;; if you decide to structure your solution differently.
@@ -60,8 +60,5 @@
   ; This returns a totally random color so it should be quite
   ; obvious if you haven't dealt with this. You can specify colors
   ; with things like strings ("blue") or keywords (:red).
-  (seesaw.color/color (rand-int 256)
-                      (rand-int 256)
-                      (rand-int 256)
-                      (rand-int 256))
+  (seesaw.color/color (if(= nil individual) "white" @individual))
   )
